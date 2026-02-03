@@ -10,7 +10,7 @@ station_data <- read_csv("data/station.csv")
 
 station_coords <- station_data %>% 
   select(MonitoringLocationIdentifier, LatitudeMeasure, LongitudeMeasure) %>%
-  distinct(MonitoringLocationIdentifier, .keep_all = TRUE) # 确保每个ID只对应一组唯一的坐标
+  distinct(MonitoringLocationIdentifier, .keep_all = TRUE)
 
 nitrate_sf <- pollution_raw %>%
   filter(str_detect(tolower(CharacteristicName), "nitrate")) %>%
@@ -18,7 +18,7 @@ nitrate_sf <- pollution_raw %>%
   filter(!is.na(nitrate_value), 
          `ResultMeasure/MeasureUnitCode` == "mg/l as N") %>%
   select(MonitoringLocationIdentifier, nitrate_value) %>%
-  left_join(station_coords, by = "MonitoringLocationIdentifier") %>% # 此时 station_coords 已定义
+  left_join(station_coords, by = "MonitoringLocationIdentifier") %>%
   filter(!is.na(LatitudeMeasure) & !is.na(LongitudeMeasure)) %>%
   st_as_sf(coords = c("LongitudeMeasure", "LatitudeMeasure"), crs = 4326)
 
@@ -68,3 +68,4 @@ final_viz <- (p1 | p2) / p3 +
   plot_annotation(title = "Multiscale Analysis of Nitrate Pollution in California")
 
 print(final_viz)
+

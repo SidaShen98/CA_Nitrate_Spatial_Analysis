@@ -1,1 +1,3 @@
 # CA_Nitrate_Spatial_Analysis
+
+![California_Nitrate_Multiscale_Analysis](California_Nitrate_Multiscale_Analysis.png)
